@@ -23,6 +23,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 PHPDC Web is a server-side Web frontend for the Direct Connect Text
 Client (dctc).
 
+%description -l pl
+PHPDC Web to dzia³aj±cy po stronie serwera frontend WWW do tekstowego
+klienta Direct Connect (dctc - Direct Connect Text Client).
+
 %prep
 %setup -q -n %{name}
 %patch0 -p1
