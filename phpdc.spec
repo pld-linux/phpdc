@@ -9,6 +9,8 @@ Group:		Applications/Databases/Interfaces
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}%{_rc}.tar.gz
 # Source0-md5:	035a6a0dbedd55f724237aa0b9cebff9
 Patch0:		%{name}-config.patch
+#		http://phpdc.sourceforge.net/release/phpdc-1.0rc1-hublist_bug.patch
+Patch1:		%{name}-1.0rc1-hublist_bug.patch
 URL:		http://phpdc.sourceforge.net/
 Requires:	dctc
 Requires:	php >= 4.3.0
@@ -31,6 +33,7 @@ klienta Direct Connect (dctc - Direct Connect Text Client).
 %prep
 %setup -q -n %{name}
 %patch0 -p1
+%patch1 -p0
 
 %install
 rm -rf $RPM_BUILD_ROOT
