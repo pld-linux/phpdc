@@ -8,6 +8,7 @@ License:	GPL v2
 Group:		Applications/Databases/Interfaces
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}%{_rc}.tar.gz
 # Source0-md5:	035a6a0dbedd55f724237aa0b9cebff9
+Source1:        %{name}.conf
 Patch0:		%{name}-config.patch
 #		http://phpdc.sourceforge.net/release/phpdc-1.0rc1-hublist_bug.patch
 Patch1:		%{name}-1.0rc1-hublist_bug.patch
@@ -20,7 +21,9 @@ Requires:	webserver
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_phpdir	/home/services/httpd/html/phpdc
+%define		_phpdcdir	%{_datadir}/%{name}
+%define         _sysconfdir     /etc/%{name}
+
 
 %description
 PHPDC Web is a server-side Web frontend for the Direct Connect Text
@@ -37,28 +40,64 @@ klienta Direct Connect (dctc - Direct Connect Text Client).
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_phpdir}/{layout,private,styles,Downloads}
+install -d $RPM_BUILD_ROOT%{_phpdcdir}/{layout,private,styles,Downloads} \
+        $RPM_BUILD_ROOT{%{_sysconfdir},/etc/httpd}
 
-install *.php $RPM_BUILD_ROOT%{_phpdir}
-install *.{html,png,ini} $RPM_BUILD_ROOT%{_phpdir}
-install layout/* $RPM_BUILD_ROOT%{_phpdir}/layout
-install private/* $RPM_BUILD_ROOT%{_phpdir}/private
-install styles/* $RPM_BUILD_ROOT%{_phpdir}/styles
+
+install *.php $RPM_BUILD_ROOT%{_phpdcdir}
+install *.{html,png,ini} $RPM_BUILD_ROOT%{_phpdcdir}
+install layout/* $RPM_BUILD_ROOT%{_phpdcdir}/layout
+install private/* $RPM_BUILD_ROOT%{_phpdcdir}/private
+install styles/* $RPM_BUILD_ROOT%{_phpdcdir}/styles
+
+install phpdc.ini $RPM_BUILD_ROOT%{_sysconfdir}
+ln -sf %{_sysconfdir}/phpdc.ini $RPM_BUILD_ROOT%{_phpdcdir}/phpdc.ini
+
+
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/%{name}.conf
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+if [ -f /etc/httpd/httpd.conf ] && ! grep -q "^Include.*%{name}.conf" /etc/httpd/httpd.conf; then
+        echo "Include /etc/httpd/%{name}.conf" >> /etc/httpd/httpd.conf
+elif [ -d /etc/httpd/httpd.conf ]; then
+        ln -sf /etc/httpd/%{name}.conf /etc/httpd/httpd.conf/99_%{name}.conf
+fi
+if [ -f /var/lock/subsys/httpd ]; then
+        /usr/sbin/apachectl restart 1>&2
+fi
+
+%preun
+if [ "$1" = "0" ]; then
+        umask 027
+        if [ -d /etc/httpd/httpd.conf ]; then
+                rm -f /etc/httpd/httpd.conf/99_%{name}.conf
+        else
+                grep -v "^Include.*%{name}.conf" /etc/httpd/httpd.conf > \
+                        /etc/httpd/httpd.conf.tmp
+                mv -f /etc/httpd/httpd.conf.tmp /etc/httpd/httpd.conf
+                if [ -f /var/lock/subsys/httpd ]; then
+                        /usr/sbin/apachectl restart 1>&2
+                fi
+        fi
+fi
+
 %files
 %defattr(644,root,root,755)
-%dir %{_phpdir}
-%dir %{_phpdir}/layout
-%dir %{_phpdir}/private
-%dir %{_phpdir}/styles
-%attr(664,http,http) %dir %{_phpdir}/Downloads
-%{_phpdir}/*.html
-%{_phpdir}/*.php
-%{_phpdir}/*.png
-%{_phpdir}/layout/*
-%{_phpdir}/private/*.php
-%{_phpdir}/styles/*
-%attr(664,root,http) %config(noreplace) %verify(not md5 size mtime) %{_phpdir}/private/phpdc.ini
+%dir %{_sysconfdir}
+%attr(640,root,http) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
+%config(noreplace) %verify(not size mtime md5) /etc/httpd/%{name}.conf
+%dir %{_phpdcdir}
+%dir %{_phpdcdir}/layout
+%dir %{_phpdcdir}/private
+%dir %{_phpdcdir}/styles
+%attr(664,http,http) %dir %{_phpdcdir}/Downloads
+%{_phpdcdir}/*.html
+%{_phpdcdir}/*.php
+%{_phpdcdir}/*.png
+%{_phpdcdir}/layout/*
+%{_phpdcdir}/private/*.php
+%{_phpdcdir}/styles/*
+%attr(664,root,http) %config(noreplace) %verify(not md5 size mtime) %{_phpdcdir}/private/phpdc.ini
