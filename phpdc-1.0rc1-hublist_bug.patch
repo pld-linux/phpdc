@@ -1,0 +1,14 @@
+--- phpdc.inc.php	Sat Mar  8 09:40:53 2003
++++ phpdc.inc.php	Thu Mar 13 04:10:44 2003
+@@ -454,9 +454,10 @@
+         $invert_color = get_ini_var('invert_color');
+         $invert_color2 = get_ini_var('invert_color2');
+ 
+-        if (!($arq = @fopen($filename, "r")))
++        if (!($arq = @fopen($filename, "r"))) {
+ 		print "unable to get server list";
+                 return 0;
++	}
+ 
+         $hubs = Array();
+         $a_title = Array();
