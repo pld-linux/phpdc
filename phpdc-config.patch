@@ -1,0 +1,20 @@
+--- ./private/phpdc.ini.org	Sat Mar  8 18:51:58 2003
++++ ./private/phpdc.ini	Mon Mar 24 11:51:15 2003
+@@ -1,14 +1,14 @@
+ users_refresh=60
+ viewd_refresh=30
+-nick=phpDC_user
++nick=phpDC_PLD_user
+ info=phpDC 1.0rc1
+ port=1412
+ offset=1234123123
+ firewall=0
+ conntype=cable
+-dctc=/usr/local/bin/dctc
++dctc=/usr/bin/dctc
+ socket_dir=/tmp/phpdc
+-download=/home/groups/p/ph/phpdc/htdocs/release/a/phpdc/Downloads
++download=/home/services/httpd/html/phpdc/Downloads
+ vshare=/tmp/phpdc/vshared
+ text_color=BLACK
+ hi_text_color=BLUE
