@@ -29,7 +29,7 @@ Client (dctc).
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_phpdir}/{layout,private,styles}
+install -d $RPM_BUILD_ROOT%{_phpdir}/{layout,private,styles,Downloads}
 
 install *.php $RPM_BUILD_ROOT%{_phpdir}
 install *.{html,png,ini} $RPM_BUILD_ROOT%{_phpdir}
@@ -46,6 +46,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_phpdir}/layout
 %dir %{_phpdir}/private
 %dir %{_phpdir}/styles
+%attr(664,http,http) %dir %{_phpdir}/Downloads
 %{_phpdir}/*.html
 %{_phpdir}/*.php
 %{_phpdir}/*.png
