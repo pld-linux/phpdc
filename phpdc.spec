@@ -7,6 +7,7 @@ Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/Databases/Interfaces
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}%{_rc}.tar.gz
+Patch0:		%{name}-config.patch
 URL:		http://phpdc.sourceforge.net/
 Requires:	dctc
 Requires:	php >= 4.3.0
@@ -24,6 +25,7 @@ Client (dctc).
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -50,4 +52,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_phpdir}/layout/*
 %{_phpdir}/private/*.php
 %{_phpdir}/styles/*
-%config(noreplace) %verify(not md5 size mtime) %{_phpdir}/private/phpdc.ini
+%attr(664,root,http) %config(noreplace) %verify(not md5 size mtime) %{_phpdir}/private/phpdc.ini
