@@ -11,7 +11,7 @@ URL:		http://phpdc.sourceforge.net/
 Requires:	dctc
 Requires:	php >= 4.3.0
 Requires:	php-gd >= 4.3.0
-Requires:	php-socket >= 4.3.0
+Requires:	php-sockets >= 4.3.0
 Requires:	webserver
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
