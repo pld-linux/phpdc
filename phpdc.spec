@@ -7,6 +7,7 @@ Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/Databases/Interfaces
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}%{_rc}.tar.gz
+# Source0-md5:	035a6a0dbedd55f724237aa0b9cebff9
 Patch0:		%{name}-config.patch
 URL:		http://phpdc.sourceforge.net/
 Requires:	dctc
