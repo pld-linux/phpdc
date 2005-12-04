@@ -6,7 +6,7 @@ Version:	1.0
 Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/Databases/Interfaces
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}%{_rc}.tar.gz
+Source0:	http://dl.sourceforge.net/phpdc/%{name}-%{version}%{_rc}.tar.gz
 # Source0-md5:	035a6a0dbedd55f724237aa0b9cebff9
 Source1:	%{name}.conf
 Patch0:		%{name}-config.patch
@@ -84,8 +84,8 @@ fi
 %files
 %defattr(644,root,root,755)
 %dir %{_sysconfdir}
-%attr(640,root,http) %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/*
-%config(noreplace) %verify(not size mtime md5) /etc/httpd/%{name}.conf
+%attr(640,root,http) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/*
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/httpd/%{name}.conf
 %dir %{_phpdcdir}
 %dir %{_phpdcdir}/layout
 %dir %{_phpdcdir}/private
@@ -97,4 +97,4 @@ fi
 %{_phpdcdir}/layout/*
 %{_phpdcdir}/private/*.php
 %{_phpdcdir}/styles/*
-%attr(664,root,http) %config(noreplace) %verify(not md5 size mtime) %{_phpdcdir}/private/phpdc.ini
+%attr(664,root,http) %config(noreplace) %verify(not md5 mtime size) %{_phpdcdir}/private/phpdc.ini
