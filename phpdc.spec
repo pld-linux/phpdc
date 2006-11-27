@@ -1,8 +1,10 @@
+# TODO
+# - webapps
+%define	_rc	rc1
 Summary:	A Web frontend for the Direct Connect Text Client
 Summary(pl):	Interfejs WWW do Direct Connect Text Client
 Name:		phpdc
 Version:	1.0
-%define	_rc	rc1
 Release:	0.%{_rc}.1
 License:	GPL v2
 Group:		Applications/Databases/Interfaces
@@ -14,10 +16,10 @@ Patch0:		%{name}-config.patch
 Patch1:		%{name}-1.0rc1-hublist_bug.patch
 URL:		http://phpdc.sourceforge.net/
 Requires:	dctc
-Requires:	php >= 4.3.0
-Requires:	php-gd >= 4.3.0
-Requires:	php-sockets >= 4.3.0
+Requires:	php(gd)
+Requires:	php(sockets)
 Requires:	webserver
+Requires:	webserver(php) >= 4.3.0
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
