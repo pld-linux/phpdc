@@ -2,7 +2,7 @@
 # - webapps
 %define	_rc	rc1
 Summary:	A Web frontend for the Direct Connect Text Client
-Summary(pl):	Interfejs WWW do Direct Connect Text Client
+Summary(pl.UTF-8):   Interfejs WWW do Direct Connect Text Client
 Name:		phpdc
 Version:	1.0
 Release:	0.%{_rc}.1
@@ -30,8 +30,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 PHPDC Web is a server-side Web frontend for the Direct Connect Text
 Client (dctc).
 
-%description -l pl
-PHPDC Web to dzia³aj±cy po stronie serwera frontend WWW do tekstowego
+%description -l pl.UTF-8
+PHPDC Web to dziaÅ‚ajÄ…cy po stronie serwera frontend WWW do tekstowego
 klienta Direct Connect (dctc - Direct Connect Text Client).
 
 %prep
