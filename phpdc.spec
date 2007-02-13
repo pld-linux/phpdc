@@ -2,7 +2,7 @@
 # - webapps
 %define	_rc	rc1
 Summary:	A Web frontend for the Direct Connect Text Client
-Summary(pl.UTF-8):   Interfejs WWW do Direct Connect Text Client
+Summary(pl.UTF-8):	Interfejs WWW do Direct Connect Text Client
 Name:		phpdc
 Version:	1.0
 Release:	0.%{_rc}.1
