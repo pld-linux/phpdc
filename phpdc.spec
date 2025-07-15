@@ -36,8 +36,8 @@ klienta Direct Connect (dctc - Direct Connect Text Client).
 
 %prep
 %setup -q -n %{name}
-%patch0 -p1
-%patch1 -p0
+%patch -P0 -p1
+%patch -P1 -p0
 
 %install
 rm -rf $RPM_BUILD_ROOT
